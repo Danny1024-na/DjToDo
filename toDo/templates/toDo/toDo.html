@@ -60,8 +60,7 @@
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="by=" exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="by=" exampleModalLabel aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -79,8 +78,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="by=" exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="by=" exampleModalLabel aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -104,8 +102,8 @@
         crossorigin="anonymous">
     </script>
 <!-- for view -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.cjs.js" integrity="sha512-Om0T2d9tl4H2ShSsEkWjJeQOlXGJg4OZvXKZw075refp2RNZ1avQDbqd6WhwGbWhqpcn2oPmExCEa/lSLzZaJw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.cjs.js" integrity="sha512-Om0T2d9tl4H2ShSsEkWjJeQOlXGJg4OZvXKZw075refp2RNZ1avQDbqd6WhwGbWhqpcn2oPmExCEa/lSLzZaJw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script type="text/javascript">
@@ -120,12 +118,12 @@
                     },
                     current_todo:{}
                 },
-                // um alles einzuschalten wenn die Webseite offnet
+                // um alles einzuschalten wenn die Webseite öffnet
                 mounted:function(){
                     this.getToDo()
                 },
 
-                methodes:{
+                methods:{
                     getToDo:function(){
                         axios.get('/todo/api/todo')
                         .then((response)=>{
