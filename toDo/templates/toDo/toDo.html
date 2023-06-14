@@ -63,17 +63,27 @@
         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="by=" exampleModalLabel aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5 d-inline-block" id="exampleModalLabel">add</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                    <!-- prevent the submit and start the function todo -->
+                    <form v-on:submit.prevent="addToDo()">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 d-inline-block" id="exampleModalLabel">Create ToDo</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">todo</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput1" v-model="new_todo.title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">notes</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="new_todo.notes"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save changes">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -81,17 +91,7 @@
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="by=" exampleModalLabel aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5 d-inline-block" id="exampleModalLabel">Edit</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                    ...
                 </div>
             </div>
         </div>
@@ -102,11 +102,15 @@
         crossorigin="anonymous">
     </script>
 <!-- for view -->
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.cjs.js" integrity="sha512-Om0T2d9tl4H2ShSsEkWjJeQOlXGJg4OZvXKZw075refp2RNZ1avQDbqd6WhwGbWhqpcn2oPmExCEa/lSLzZaJw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <script type="text/javascript">
+
+            axios.defaults.xsrfCookieName = 'csrftoken'
+            axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+
             var app= new Vue({
                 el: '#app',
                 delimiters:['${','}'],
@@ -125,11 +129,18 @@
 
                 methods:{
                     getToDo:function(){
-                        axios.get('/todo/api/todo')
+                        axios.get('/todo/api/todo/')
                         .then((response)=>{
                             this.todo_list = response.data
                             console.log(this.todo_list)
                         })  
+                    },
+
+                    addToDo:function(){
+                        axios.post('/todo/api/todo', this.new_todo)
+                        .then((response)=>{
+                            this.getToDo()
+                        })
                     },
                 }
             })
