@@ -156,7 +156,7 @@
                     },
 
                     addToDo:function(){
-                        axios.post('/todo/api/todo', this.new_todo)
+                        axios.post('/todo/api/todo/', this.new_todo)
                         .then((response)=>{
                             this.getToDo()
                         })
@@ -170,7 +170,7 @@
                         )
                     },
                     updateToDo: function () {
-                        axios.put('/todo/api/todo/' + this.current_todo.id,this.current_todo)
+                        axios.put(`/todo/api/todo/${this.current_todo.id}/` ,this.current_todo)
                         .then((response)=>{
                             this.current_todo=response.data
                             this.getToDo()
